@@ -18,9 +18,13 @@ Use this structure as a base, but ADD any extra sections you find in the resume:
   "email": "...",
   "phone": "...",
   "location": "...",
-  "linkedin": "...",
-  "github": "...",
-  "portfolio": "...",
+  "linkedin": "https://linkedin.com/in/username (FULL URL with https://)",
+  "github": "https://github.com/username (FULL URL with https://)",
+  "portfolio": "https://... (FULL URL if present)",
+  "leetcode": "https://leetcode.com/username (FULL URL if present in resume)",
+  "codechef": "https://www.codechef.com/users/username (FULL URL if present)",
+  "codeforces": "https://codeforces.com/profile/username (FULL URL if present)",
+  "hackerrank": "https://www.hackerrank.com/profile/username (FULL URL if present)",
   "summary": "Rewritten 2-4 sentence professional summary targeting this specific job",
   "skill_categories": {
     "Languages": ["Python", "JavaScript", "..."],
@@ -82,7 +86,11 @@ IMPORTANT RULES:
 - Never fabricate data. If a field is not in the old resume, omit it entirely — do not include it with empty or placeholder values
 - If a section exists in the old resume but is not in the base structure above, still include it in the JSON with a sensible key name
 - Rewrite ONLY: summary, experience bullets, project bullets
+- If the data is totally irrelevant to the job description, remove it
 - Keep EXACTLY as-is: names, emails, phones, dates, company names, school names, links, tech stacks, certification names
+- ALL link/URL fields (linkedin, github, portfolio, leetcode, codechef, codeforces, hackerrank, project links) MUST be returned as FULL URLs starting with https://. Example: "https://github.com/username" NOT just "username" or "github.com/username"
+- If the resume contains a profile link (e.g. LeetCode, CodeChef, Codeforces, HackerRank), extract it as a separate top-level field with the platform name as the key and the FULL URL as the value
+- awards: Each award should be a simple string like "Award Name — Description", NOT a JSON object. Example: "PPO Recipient — Received Pre-Placement Offer from Coding Blocks"
 - skill_categories: Group all skills into meaningful categories (Languages, Frameworks/Libraries, Developer Tools, Databases, Platforms/Technologies, etc.). Use 2-5 categories that make sense for the candidate's profile. Also provide the flat "skills" array
 - jd_keywords: Extract 15-30 important keywords and phrases from the job description that are ALSO relevant to the candidate's resume. Include: programming languages, frameworks, tools, methodologies (Agile, Scrum, TDD), domain-specific terms, certifications, and key technical concepts. These will be bolded in the final resume for ATS visibility
 - projects: Write 2-4 concise achievement-oriented bullet points per project (NOT a single paragraph). Each bullet should start with a strong action verb

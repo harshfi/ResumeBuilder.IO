@@ -191,6 +191,231 @@
   opacity: 1;
 }
 
+/* ─── Layout System ───────────────────────────────────────────────────── */
+.app-container {
+  height: 100vh;
+  height: 100dvh; /* dynamic viewport height for mobile browsers */
+  width: 100vw;
+  overflow: hidden;
+}
+
+.desktop-layout {
+  display: flex;
+  flex-direction: row;
+  background: #f9fafb;
+}
+
+.left-panel-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-right: 1px solid #f3f4f6;
+}
+
+.right-panel-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+}
+
+/* ─── Mobile Layout ───────────────────────────────────────────────────── */
+.mobile-layout {
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+}
+
+.mobile-layout .left-panel-inner,
+.mobile-layout .right-panel-inner {
+  width: 100% !important;
+  border-right: none;
+}
+
+.mobile-panel-visible {
+  display: flex !important;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mobile-panel-hidden {
+  display: none !important;
+}
+
+/* ─── Mobile Tab Bar ──────────────────────────────────────────────────── */
+.mobile-tab-bar {
+  display: flex;
+  gap: 0;
+  padding: 6px 8px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.mobile-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.mobile-tab.active {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.mobile-tab:not(.active):active {
+  background: #f3f4f6;
+}
+
+.mobile-tab-badge {
+  font-size: 0.5rem;
+  color: #22c55e;
+  position: absolute;
+  top: 6px;
+  right: calc(50% - 40px);
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ─── Mobile Responsive Overrides ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Left panel spacing */
+  .mobile-layout .left-panel-inner > div:first-child {
+    padding: 16px 16px 8px;
+  }
+  .mobile-layout .left-panel-inner > div:last-child {
+    padding: 0 16px 16px;
+  }
+
+  /* Right panel spacing */
+  .mobile-layout .right-panel-inner > div:last-child {
+    padding: 8px;
+  }
+
+  /* Download toolbar on mobile */
+  .mobile-layout .right-panel-inner > div:first-child {
+    padding: 8px 12px;
+  }
+
+  /* Resume preview card — scale down for mobile */
+  .mobile-layout #resume-preview {
+    padding: 24px 20px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+  }
+
+  /* Smaller name on mobile */
+  .mobile-layout .latex-name {
+    font-size: 1.5em;
+  }
+
+  /* Stack subheading rows on very small screens */
+  .mobile-layout .latex-subheading-row {
+    flex-wrap: wrap;
+    gap: 2px 8px;
+  }
+
+  /* Contact row wraps more on mobile */
+  .mobile-layout .latex-contact-row {
+    gap: 4px 10px;
+    font-size: 0.78em;
+  }
+
+  /* Coursework grid single column on mobile */
+  .mobile-layout .latex-coursework-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Editable fields — larger touch targets */
+  .mobile-layout .editable-field {
+    min-height: 28px;
+    padding: 2px 4px;
+  }
+
+  /* Delete buttons — always visible on mobile (no hover) */
+  .mobile-layout .section-delete-btn {
+    opacity: 0.6;
+    width: 28px;
+    height: 28px;
+  }
+  .mobile-layout .item-delete-btn {
+    opacity: 0.5;
+    width: 22px;
+    height: 22px;
+    right: -8px;
+    top: 0;
+  }
+  .mobile-layout .bullet-wrapper .item-delete-btn {
+    right: -6px;
+  }
+
+  /* Buttons — taller for touch */
+  .mobile-layout button.w-full {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-size: 0.95rem;
+  }
+
+  /* Textarea — taller on mobile */
+  .mobile-layout textarea {
+    font-size: 16px; /* prevents iOS auto-zoom */
+  }
+
+  /* File upload drop zone */
+  .mobile-layout .border-dashed {
+    padding: 20px 16px;
+  }
+}
+
+/* Extra-small devices */
+@media (max-width: 380px) {
+  .mobile-tab {
+    font-size: 0.8rem;
+    padding: 8px 8px;
+  }
+
+  .mobile-layout .latex-name {
+    font-size: 1.3em;
+  }
+
+  .mobile-layout .latex-contact-row {
+    font-size: 0.72em;
+    gap: 3px 8px;
+  }
+
+  .mobile-layout #resume-preview {
+    padding: 16px 14px !important;
+  }
+}
+
 /* ─── Print / PDF Download Styles ──────────────────────────────────────── */
 @media print {
   @page {

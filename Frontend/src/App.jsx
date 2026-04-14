@@ -4,6 +4,11 @@ import { ResumeDocument } from './MyDocument';
 import { generateLatexSource } from './utils/latexGenerator.jsx';
 import { LatexResumePreview } from './components/LatexResumePreview';
 
+// ─── API base URL ──────────────────────────────────────────────────────────────
+// In production (Vercel), VITE_API_URL points to the Render backend.
+// In development, we use the Vite proxy ('/api' → localhost:3000).
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+
 // ─── App Component ─────────────────────────────────────────────────────────────
 function App() {
   const [leftWidth, setLeftWidth] = useState(42);
@@ -69,7 +74,7 @@ function App() {
       const formData = new FormData();
       formData.append('uploaded_file', uploadedFile);
       formData.append('jobDescription', jobDescription);
-      const response = await fetch('/api/upload', { method: 'POST', body: formData });
+      const response = await fetch(`${API_URL}/upload`, { method: 'POST', body: formData });
       if (!response.ok) throw new Error(`Server error: ${response.status} ${response.statusText}`);
       const data = await response.json();
       if (data.raw) {

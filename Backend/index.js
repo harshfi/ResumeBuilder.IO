@@ -23,9 +23,18 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // ─── Express ─────────────────────────────────────────────────────────────────
 const app = express();
-app.use(cors());
+// ─── CORS — allow Vercel frontend to call Render backend ─────────────────────
+app.use(cors({
+  origin: '*',   // In production, you can restrict to your Vercel domain
+  methods: ['GET', 'POST'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ─── Health check (GET /) ────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Resume Builder API is running' });
+});
 
 // ─── Upload & Generate Resume ────────────────────────────────────────────────
 app.post('/upload', upload.single('uploaded_file'), async (req, res) => {
